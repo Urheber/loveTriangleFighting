@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://73b1674pvq0k"]
+
+[ext_resource type="Script" path="res://levels/level.gd" id="1_b1c4g"]
+[ext_resource type="PackedScene" uid="uid://chgk2cd6ha6t" path="res://characters/adele_3.tscn" id="2_ulgac"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0hl5"]
+size = Vector2(1137, 20)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_b1c4g")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-30, -271)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(2, 28)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-29.5, 0)
+shape = SubResource("RectangleShape2D_o0hl5")
+
+[node name="adele_3" parent="." instance=ExtResource("2_ulgac")]
+position = Vector2(203, 1)
