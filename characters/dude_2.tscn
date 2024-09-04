@@ -1,10 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://c2ys5rja32uoi"]
+[gd_scene load_steps=19 format=3 uid="uid://c2ys5rja32uoi"]
 
 [ext_resource type="Texture2D" uid="uid://cq82teoga5hlg" path="res://art/dude_1.png" id="1_u1nak"]
 [ext_resource type="Script" path="res://characters/actions/StateMachine2.gd" id="2_rjqnj"]
 [ext_resource type="Script" path="res://characters/actions/state.gd" id="3_oes1x"]
+[ext_resource type="Script" path="res://components/Out.gd" id="4_3dd57"]
 [ext_resource type="Script" path="res://components/ends_to.gd" id="4_4ekip"]
 [ext_resource type="Script" path="res://components/hitbox.gd" id="4_gsicd"]
+[ext_resource type="Script" path="res://components/moveable2.gd" id="6_3vhwi"]
+[ext_resource type="Script" path="res://components/walking.gd" id="7_5l0st"]
+[ext_resource type="Script" path="res://components/Animations.gd" id="7_dybw8"]
+[ext_resource type="Script" path="res://components/direction2.gd" id="10_x7bfn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xwygw"]
+radius = 58.2151
 
 [sub_resource type="Animation" id="Animation_a2876"]
 resource_name = "Hit"
@@ -93,21 +101,36 @@ tracks/1/keys = {
 "values": [Vector2(-19, -198)]
 }
 
+[sub_resource type="Animation" id="Animation_cr4oc"]
+resource_name = "Walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6bi32"]
 _data = {
 "Hit": SubResource("Animation_a2876"),
 "Idle": SubResource("Animation_stscj"),
 "Out": SubResource("Animation_452ck"),
-"RESET": SubResource("Animation_3sf28")
+"RESET": SubResource("Animation_3sf28"),
+"Walk": SubResource("Animation_cr4oc")
 }
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_xwygw"]
-radius = 58.2151
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uvipn"]
 radius = 59.3043
 
 [node name="dude_2" type="CharacterBody2D"]
+position = Vector2(0, 4)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-19, -198)
@@ -116,38 +139,55 @@ hframes = 3
 vframes = 3
 frame = 1
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node2D" parent="."]
 script = ExtResource("2_rjqnj")
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource("3_oes1x")
 
-[node name="Out" type="Node" parent="StateMachine"]
+[node name="Out" type="Node2D" parent="StateMachine"]
 script = ExtResource("3_oes1x")
 
-[node name="out" type="Node" parent="StateMachine/Out"]
+[node name="out" type="Node2D" parent="StateMachine/Out"]
+script = ExtResource("4_3dd57")
 
-[node name="Hit" type="Node" parent="StateMachine"]
+[node name="Hit" type="Node2D" parent="StateMachine"]
 script = ExtResource("3_oes1x")
 
-[node name="ends_to" type="Node" parent="StateMachine/Hit"]
+[node name="ends_to" type="Node2D" parent="StateMachine/Hit"]
 script = ExtResource("4_4ekip")
+
+[node name="hitbox" type="Area2D" parent="StateMachine/Hit"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_gsicd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StateMachine/Hit/hitbox"]
+position = Vector2(-19, -252)
+shape = SubResource("CircleShape2D_xwygw")
+
+[node name="Walk" type="Node2D" parent="StateMachine"]
+script = ExtResource("3_oes1x")
+
+[node name="ends_to" type="Node2D" parent="StateMachine/Walk"]
+script = ExtResource("4_4ekip")
+
+[node name="walking" type="Node2D" parent="StateMachine/Walk"]
+script = ExtResource("7_5l0st")
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_6bi32")
 }
 autoplay = "Idle"
-
-[node name="hitbox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("4_gsicd")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(-19, -252)
-shape = SubResource("CircleShape2D_xwygw")
+script = ExtResource("7_dybw8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -60)
 shape = SubResource("CircleShape2D_uvipn")
+
+[node name="moveable" type="Node2D" parent="."]
+script = ExtResource("6_3vhwi")
+
+[node name="direction" type="Node" parent="."]
+script = ExtResource("10_x7bfn")

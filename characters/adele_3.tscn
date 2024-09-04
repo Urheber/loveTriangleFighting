@@ -165,19 +165,19 @@ radius = 34.1321
 
 [node name="adele_3" type="CharacterBody2D"]
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node2D" parent="."]
 script = ExtResource("1_g3a4r")
 
-[node name="Walk" type="Node" parent="StateMachine"]
+[node name="Walk" type="Node2D" parent="StateMachine"]
 script = ExtResource("2_stb4p")
 
-[node name="ends_to" type="Node" parent="StateMachine/Walk"]
+[node name="ends_to" type="Node2D" parent="StateMachine/Walk"]
 script = ExtResource("3_xaqob")
 
-[node name="walking" type="Node" parent="StateMachine/Walk"]
+[node name="walking" type="Node2D" parent="StateMachine/Walk"]
 script = ExtResource("4_aedsf")
 
-[node name="playerControlLeft" type="Node" parent="StateMachine/Walk"]
+[node name="playerControlLeft" type="Node2D" parent="StateMachine/Walk"]
 script = ExtResource("5_0hdr1")
 init_action = "left"
 init_vars = {
@@ -185,7 +185,7 @@ init_vars = {
 }
 ends_by_release = true
 
-[node name="playerControlRight" type="Node" parent="StateMachine/Walk"]
+[node name="playerControlRight" type="Node2D" parent="StateMachine/Walk"]
 script = ExtResource("5_0hdr1")
 init_action = "right"
 init_vars = {
@@ -193,30 +193,30 @@ init_vars = {
 }
 ends_by_release = true
 
-[node name="Jump" type="Node" parent="StateMachine"]
+[node name="Jump" type="Node2D" parent="StateMachine"]
 script = ExtResource("2_stb4p")
 
-[node name="ends_to" type="Node" parent="StateMachine/Jump"]
+[node name="ends_to" type="Node2D" parent="StateMachine/Jump"]
 script = ExtResource("3_xaqob")
 
-[node name="jumping" type="Node" parent="StateMachine/Jump"]
+[node name="jumping" type="Node2D" parent="StateMachine/Jump"]
 script = ExtResource("6_tfk66")
 
-[node name="playerControl" type="Node" parent="StateMachine/Jump"]
+[node name="playerControl" type="Node2D" parent="StateMachine/Jump"]
 script = ExtResource("5_0hdr1")
 init_action = "jump"
 
-[node name="Kick" type="Node" parent="StateMachine"]
+[node name="Kick" type="Node2D" parent="StateMachine"]
 script = ExtResource("2_stb4p")
 
-[node name="playerControl" type="Node" parent="StateMachine/Kick"]
+[node name="playerControl" type="Node2D" parent="StateMachine/Kick"]
 script = ExtResource("5_0hdr1")
 init_action = "attack"
 
-[node name="ends_to" type="Node" parent="StateMachine/Kick"]
+[node name="ends_to" type="Node2D" parent="StateMachine/Kick"]
 script = ExtResource("3_xaqob")
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource("2_stb4p")
 
 [node name="Animations" type="AnimationPlayer" parent="."]

@@ -1,8 +1,11 @@
 class_name HitBox extends Area2D
 
+signal message(msg:String, payload:Dictionary)
+
 @export var health := 3.0 
 
 func _ready():
+	add_to_group("DataProviders")
 	connect("area_entered", _on_area_entered)
 	
 func _on_area_entered(body:AttackBox):
@@ -12,10 +15,7 @@ func _on_area_entered(body:AttackBox):
 		if owner.has_node("StateMachine"):
 			var sm = owner.get_node("StateMachine")
 			if health<=0:
-				owner.get_node(
-					"StateMachine"
-				).perform_action(sm.out_state)
+				message.emit("Redirect", {"name":"Out"})
 			else:
-				owner.get_node(
-					"StateMachine"
-				).perform_action("Hit")
+				message.emit("Redirect", {"name":"Hit"})
+				message.emit("ChangeData", {"type":"Hit", "new_health":health, "power":body.power})

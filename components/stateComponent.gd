@@ -1,3 +1,3 @@
-class_name StateComponent extends Node
+class_name StateComponent extends Node2D
 
 

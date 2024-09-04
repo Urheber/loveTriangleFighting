@@ -9,7 +9,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 #@export var direction = 1;
 
-
 func change_direction():
 	direction.change_direction()
 

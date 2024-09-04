@@ -1,15 +1,7 @@
-class_name State extends Node
+class_name State extends Node2D
 
-enum triggerTypes {END ,ACTION_RELEASED, ACTION_PRESSED, AREA_ENTERED}
-
-@export var stop_triggers:Array[triggerTypes]
-@export var stop_trigger_vals:Array[String]
 
 signal finished(me:State)
-
-func eval_stop_trigger(trigger_type, trigger_val):
-	if trigger_type == triggerTypes.ACTION_RELEASED and Input.is_action_just_released(trigger_val):
-		stop()
 
 func stop():
 	owner.get_node("Animations").stop()
